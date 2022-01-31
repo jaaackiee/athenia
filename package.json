@@ -23,6 +23,7 @@
     "axios": "^0.25.0",
     "discord.js": "^13.6.0",
     "mongoose": "^6.1.8",
+    "whatwg-url": "^11.0.0",
     "wokcommands": "^1.5.3"
   }
 }
