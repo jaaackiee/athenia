@@ -3,7 +3,7 @@ module.exports = {
     aliases: ["shop"],
     category: "economy",
     description: "View the role shop.",
-    callback: ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: () => {
         let txt = "";
         roles.forEach(function(role) {
             let i = 1;

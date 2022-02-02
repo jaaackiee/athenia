@@ -3,7 +3,7 @@ module.exports = {
     aliases: ["inspo"],
     category: "fun",
     description: "Displays an inspirational quote.",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: async () => {
         const res = await axios.get("https://zenquotes.io/api/random");
         return {
             custom: true,

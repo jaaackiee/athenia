@@ -6,8 +6,8 @@ module.exports = {
     description: "Give your pet a new name!",
     expectedArgs: "<petName>",
     minArgs: 1,
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
-        const votes = await vote.getVotes(user.id);
+    callback: async ({user, text}) => {
+        let votes = await vote.getVotes(user.id);
         if (votes < 2) {
             return {
                 custom: true,
@@ -15,7 +15,7 @@ module.exports = {
             }
         }
 
-        await vote.addVotes(user.id, -2);
+        votes = await vote.addVotes(user.id, -2);
 
         const petName = await pet.changePetName(user.id, text);
         return {

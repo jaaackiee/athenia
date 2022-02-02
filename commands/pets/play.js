@@ -3,8 +3,8 @@ module.exports = {
     aliases: ["play"],
     category: "pets",
     description: "Play with your pet!",
-    cooldown: "60s",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    cooldown: "30m",
+    callback: async ({user}) => {
         const petNum = await pet.getPet(user.id);
         if (petNum === -1) {
             return {
@@ -26,7 +26,7 @@ module.exports = {
 
         const embed = {
             color: 0x2f3136,
-            title: `${plays[Math.floor(Math.random() * 2)]}`,
+            title: plays[Math.floor(Math.random() * 2)],
             description: "Healed **" + petName + "** for **" + petHealth + "** <:heart1:852715565910196235>!"
         }
 

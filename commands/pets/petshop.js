@@ -2,7 +2,7 @@ module.exports = {
     aliases: ["petshop"],
     category: "pets",
     description: "Find a new friend to adopt.",
-    callback: ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: () => {
         const embed = {
             color: 0x2f3136,
             title: "⸝⸝ Pet Shop... ⊹˚.⋆",

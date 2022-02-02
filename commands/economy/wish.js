@@ -3,9 +3,8 @@ module.exports = {
     aliases: ["pancake"],
     description: "hi",
     category: "economy",
-    cooldown: "1h",
-
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    cooldown: "12h",
+    callback: async ({user}) => {
         const votes = await vote.addVotes(user.id, 1);
 
         return {

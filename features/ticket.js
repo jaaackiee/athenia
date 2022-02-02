@@ -1,4 +1,4 @@
-module.exports = async (client, instance) => {
+module.exports = async (client) => {
     client.on("messageReactionAdd", async (reaction, user) => {
         if (reaction.message.channel.id !== "829838297374916670") return;
         if (reaction.emoji.id !== "827391670030434335") return;
@@ -21,7 +21,7 @@ module.exports = async (client, instance) => {
             }
         }
 
-        reaction.message.guild.channels.create(user.username.toLowerCase() + "-" + user.discriminator, {
+        await reaction.message.guild.channels.create(user.username.toLowerCase() + "-" + user.discriminator, {
             parent: "830301022190174228",
             permissionOverwrites: [
                 {
@@ -46,11 +46,15 @@ module.exports = async (client, instance) => {
                 }
             ]
         })
-            .then((chnl) => chnl.send(`・✰﹕${user}... Hello! Please read the info below. ⊹˚.⋆`, { embed }) && chnl.setTopic(user.id))
-            .catch((e) => console.error(e));
+            .then((chnl) => chnl.send({
+                custom: true,
+                content: "・✰﹕" + user + "... Hello! Please read the info below. ⊹˚.⋆",
+                embeds: [embed]
+            }) && chnl.setTopic(user.id))
+                .catch((e) => console.error(e));
     });
 
-    client.on("message", (message) => {
+    client.on("messageCreate", (message) => {
         if (message.channel.id !== "829838297374916670") return;
 
         message.react("827391670030434335");

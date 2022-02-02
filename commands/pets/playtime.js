@@ -9,7 +9,7 @@ module.exports = {
     minArgs: 1,
     cooldown: "3h",
     guildOnly: true,
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: async ({user, message, args}) => {
         const target = findUser(message, args[0]);
         if (!target) {
             return {
@@ -40,8 +40,8 @@ module.exports = {
             }
         }
 
-        const bal = await food.getFood(user.id);
-        if (bal < 20) {
+        const foods = await food.getFood(user.id);
+        if (foods < 20) {
             return {
                 custom: true,
                 content: "You don't have enough food for a playdate!"

@@ -4,8 +4,8 @@ module.exports = {
     aliases: ["hug"],
     category: "pets",
     description: "Hug your pet.",
-    cooldown: "1h",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    // cooldown: "??",
+    callback: async ({user}) => {
         const petNum = await pet.getPet(user.id);
         if (petNum === -1) {
             return {
@@ -14,7 +14,7 @@ module.exports = {
             }
         }
 
-        const votes = await vote.getVotes(user.id);
+        let votes = await vote.getVotes(user.id);
         if (votes < 5) {
             return {
                 custom: true,
@@ -22,10 +22,10 @@ module.exports = {
             }
         }
 
-        await vote.addVotes(user.id, -5);
+        votes = await vote.addVotes(user.id, -5);
 
-        const petHealth = Math.floor(Math.random() * 10) + 5;
-        await pet.addPetHealth(user.id, petHealth);
+        let petHealth = Math.floor(Math.random() * 10) + 5;
+        petHealth = await pet.addPetHealth(user.id, petHealth);
 
         const petName = await pet.getPetName(user.id);
         return {

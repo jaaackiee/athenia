@@ -2,7 +2,7 @@
  * Sends a message to <#827374551708598302> every 4 hours for users to react to based on their mood
  */
 
-module.exports = (client, instance) => {
+module.exports = () => {
     setInterval(remind, 4 * 1000 * 60 * 60 * 60);
 
     function remind() {

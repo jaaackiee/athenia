@@ -7,11 +7,14 @@ module.exports = {
     category: "support",
     description: "Executes a string as a line of javascript code.",
     ownerOnly: true,
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: async ({text}) => {
         try {
             eval(text);
         } catch (err) {
-            message.channel.send(`\`\`\`st\n${err}\n\`\`\``);
+            return {
+                custom: true,
+                content: "\`\`\`st\n" + err + "\n\`\`\`"
+            }
         }
     }
 }

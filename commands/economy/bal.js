@@ -10,20 +10,20 @@ module.exports = {
     description: "Displays your balance and pet information.",
     expectedArgs: "[user]",
     maxArgs: 1,
-    syntaxError: "Incorrect syntax! Use `{PREFIX}`bal {ARGUMENTS}",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
-        const u = await findUser(message, args[0]);
-
-        if (!u) {
+    callback: async ({message, args}) => {
+        const user = await findUser(message, args[0]);
+        if (!user) {
             return "Invalid user.";
         }
-        const coinAmt = await coin.getCoins(u.id);
-        const voteAmt = await vote.getVotes(u.id);
-        const foodAmt = await food.getFood(u.id);
-        const petNum = await pet.getPet(u.id);
-        const petHealth = await pet.getPetHealth(u.id);
 
-        const n = Math.floor(Math.random() * 3);
+        const coins = await coin.getCoins(user.id);
+        const votes = await vote.getVotes(user.id);
+        const foods = await food.getFood(user.id);
+        const petNum = await pet.getPet(user.id);
+        const petHealth = await pet.getPetHealth(user.id);
+        const petName = await pet.getPetName(user.id);
+
+        const img = Math.floor(Math.random() * 3);
 
         let emoji;
         if (petHealth >= 71) {
@@ -35,28 +35,28 @@ module.exports = {
         } else {
             emoji = "<:heart4:852715585061388299>";
         }
+
         if (petNum > -1 && petHealth < 50) {
-            const petName = await pet.getPetName(u.id);
             const embed = {
                 color: 0x2f3136,
                 author: {
-                    name: u.tag,
-                    iconURL: u.displayAvatarURL({ dynamic: true })
+                    name: user.tag,
+                    iconURL: user.displayAvatarURL({ dynamic: true })
                 },
                 fields: [
                     {
                         name: "Pet",
-                        value: `${pets[petNum].emoji} - ${petName}\n> ${emoji} ${petHealth}`,
+                        value: pets[petNum].emoji + " - " + petName + "\n> " + emoji + " " + petHealth,
                         inline: true
                     },
                     {
                         name: "Balance",
-                        value: `${coinAmt.toLocaleString()} <:starlings:925845621074722836> \n${foodAmt.toLocaleString()} <:food:925845676464676875> \n${voteAmt.toLocaleString()} <:moonshards:925845639651270656>`,
+                        value: coins.toLocaleString() + " <:starlings:925845621074722836> \n" + foods.toLocaleString() + " <:food:925845676464676875> \n" + votes.toLocaleString() + " <:moonshards:925845639651270656>",
                         inline: true
                     }
                 ],
                 thumbnail: {
-                    url: `attachment://${petNum}-4.png`
+                    url: "attachment://" + petNum + "-4.png"
                 }
             }
 
@@ -65,33 +65,32 @@ module.exports = {
                 embeds: [embed],
                 files: [
                     {
-                        attachment: `images/pets/${petNum}-4.png`,
-                        name: `${petNum}-4.png`
+                        attachment: "images/pets/" + petNum + "-4.png",
+                        name: petNum + "-4.png"
                     }
                 ]
             }
         } else if (petNum > -1 && petHealth >= 50) {
-            const petName = await pet.getPetName(u.id);
             const embed = {
                 color: 0x2f3136,
                 author: {
-                    name: u.tag,
-                    iconURL: u.displayAvatarURL({ dynamic: true })
+                    name: user.tag,
+                    iconURL: user.displayAvatarURL({ dynamic: true })
                 },
                 fields: [
                     {
                         name: "Pet",
-                        value: `${pets[petNum].emoji} - ${petName}\n> ${emoji} ${petHealth}`,
+                        value: pets[petNum].emoji + " - " + petName + "\n> " + emoji + " " + petHealth,
                         inline: true
                     },
                     {
                         name: "Balance",
-                        value: `${coinAmt.toLocaleString()} <:starlings:925845621074722836> \n${foodAmt.toLocaleString()} <:food:925845676464676875> \n${voteAmt.toLocaleString()} <:moonshards:925845639651270656>`,
+                        value: coins.toLocaleString() + " <:starlings:925845621074722836> \n" + foods.toLocaleString() + " <:food:925845676464676875> \n" + votes.toLocaleString() + " <:moonshards:925845639651270656>",
                         inline: true
                     }
                 ],
                 thumbnail: {
-                    url: `attachment://${petNum}-${n}.png`
+                    url: "attachment://" + petNum + "-" + img + ".png"
                 }
             }
             return {
@@ -99,8 +98,8 @@ module.exports = {
                 embeds: [embed],
                 files: [
                     {
-                        attachment: `images/pets/${petNum}-${n}.png`,
-                        name: `${petNum}-${n}.png`
+                        attachment: "images/pets/" + petNum + "-" + img + ".png",
+                        name: petNum + "-" + img + ".png"
                     }
                 ]
             }
@@ -108,18 +107,18 @@ module.exports = {
            const embed = {
                 color: 0x2f3136,
                 author: {
-                    name: u.tag,
-                    iconURL: u.displayAvatarURL({ dynamic: true })
+                    name: user.tag,
+                    iconURL: user.displayAvatarURL({ dynamic: true })
                 },
                 fields: [
                     {
                         name: "Pet",
-                        value: `${u.username} has no pet!`,
+                        value: user.username + " has no pet!",
                         inline: true
                     },
                     {
                         name: "Balance",
-                        value: `${coinAmt.toLocaleString()} <:starlings:925845621074722836> \n${voteAmt.toLocaleString()} <:moonshards:925845639651270656>`,
+                        value: coins.toLocaleString() + " <:starlings:925845621074722836> \n" + votes.toLocaleString() + " <:moonshards:925845639651270656>",
                         inline: true
                     }
                 ]

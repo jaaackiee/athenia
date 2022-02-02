@@ -1,4 +1,4 @@
-module.exports = (client, instance) => {
+module.exports = (client) => {
     client.on("messageCreate", (message) => {
         const msg = message.content.toLowerCase();
         if (message.author.bot) return;

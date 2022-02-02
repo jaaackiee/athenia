@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["feed"],
     category: "pets",
     description: "Feed your pets to keep them alive.",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: async ({user}) => {
         const petNum = await pet.getPet(user.id);
         if (petNum === -1) {
             return {
@@ -14,8 +14,8 @@ module.exports = {
         }
 
         const petName = await pet.getPetName(user.id);
-        const bal = await food.getFood(user.id);
-        if (bal < 5) {
+        let oods = await food.getFood(user.id);
+        if (foods < 5) {
             return {
                 custom: true,
                 content: "You don't have enough food to feed **" + petName + "**!"
@@ -23,7 +23,7 @@ module.exports = {
         }
 
         const cost = Math.floor(Math.random() * 9) + 1;
-        await food.addFood(user.id, -cost);
+        foods = await food.addFood(user.id, -cost);
 
         const health = Math.floor(Math.random() * 2) + 3;
         await pet.addPetHealth(user.id, health);

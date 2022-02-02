@@ -4,7 +4,7 @@ module.exports = {
     description: "Displays a help menu with available commands.",
     expectedArgs: "[category]",
     maxArgs: 1,
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: async ({args}) => {
         let embed;
 
         if (args[0]) {
@@ -52,23 +52,23 @@ module.exports = {
                 fields: [
                     {
                         name: "1. ☕ **Pet Commands**",
-                        value: "0 commands! \n `.help pets` \n"
+                        value: "11 commands! \n `.help pets` \n"
                     },
                     {
                         name: "2. 🥞 **Economy Commands**",
-                        value: "0 commands! \n `.help economy` \n"
+                        value: "8 commands! \n `.help economy` \n"
                     },
                     {
                         name: "3. 🌿 **Support Commands**",
-                        value: "4 commands! \n `.help support` \n"
+                        value: "5 commands! \n `.help support` \n"
                     },
                     {
                         name: "4. 🥛 **Fun Commands**",
-                        value: "14 commands! \n `.help fun` \n"
+                        value: "5 commands! \n `.help fun` \n"
                     },
                     {
                         name: "5. 🧸 **Cute Commands**",
-                        value: "5 commands! \n `.help cute` \n"
+                        value: "3 commands! \n `.help cute` \n"
                     },
                 ],
             }

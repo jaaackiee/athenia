@@ -3,7 +3,7 @@ module.exports = {
     category: "support",
     description: "Close an open ticket",
     guildOnly: true,
-    callback: ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: ({channel}) => {
         if (channel.parentID !== "830301022190174228") return;
 
         setTimeout(function() {

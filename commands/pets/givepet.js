@@ -11,8 +11,8 @@ module.exports = {
     permissions: ["ADMINISTRATOR"],
     hidden: true,
     guildOnly: true,
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
-        user = await findUser(message, args[1]);
+    callback: async ({message, args}) => {
+        const user = await findUser(message, args[1]);
         if (!user) {
             return {
                 custom: true,
@@ -20,9 +20,19 @@ module.exports = {
             }
         }
 
+        if (args[0] < -1 || args[0] > 7 || typeof(args[0]) !== "number") {
+            return {
+                custom: true,
+                content: "Invalid number!"
+            }
+        }
+
         const petNum = await pet.getPet(user.id);
         if (args[0] === "-1" && petNum === -1) {
-            return message.reply("That user doesn't have a pet!");
+            return {
+                custom: true,
+                content: "That user doesn't have a pet!"
+            }
         }
 
         if (args[0] === "-1") {
@@ -36,6 +46,7 @@ module.exports = {
                     url: "attachment://" + petNum + "-4.png"
                 }
             }
+
             return {
                 custom: true,
                 embeds: [embed],
@@ -49,7 +60,8 @@ module.exports = {
         }
 
         const p = await pet.givePet(user.id, parseInt(args[0]));
-        await pet.changePetName(user.id, pets[p].name);
+        await pet.changePetName(user.id, pets[petNum].name);
+
         return {
             custom: true,
             content: "Gave **" + user.tag + "** a new **" + pets[p].name + " " + pets[p].emoji + "**!",

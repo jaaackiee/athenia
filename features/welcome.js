@@ -1,4 +1,4 @@
-module.exports = (client, instance) => {
+module.exports = (client) => {
     client.on("guildMemberAdd", (member) => {
         if (Date.now() - member.user.createdAt < 24 * 60 * 60 * 1000) {
             member.user.send("You have been banned because your account is less than a day old.");

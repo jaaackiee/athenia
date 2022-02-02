@@ -8,10 +8,8 @@ module.exports = {
     expectedArgs: "<petID>",
     minArgs: 1,
     maxArgs: 1,
-    syntaxError: "Incorrect syntax! Use `{PREFIX}adopt {ARGUMENTS}`",
-    //cooldown: "1h",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
-        const petNum = parseInt(args[0]) - 1;
+    callback: async ({user, args}) => {
+        let petNum = parseInt(args[0]) - 1;
         if (petNum < 0 || petNum > 7 || typeof(petNum) !== "number") {
             return {
                 custom: true,
@@ -19,11 +17,11 @@ module.exports = {
             }
         }
 
-        const canBuy = await coin.buy(message.author.id, Math.abs(pets[petNum].price));
+        const canBuy = await coin.buy(user.id, Math.abs(pets[petNum].price));
         const embed = {
             color: 0x2f3136,
             title: "୨୧ Pet Adoption ⋆˚.",
-            description: `Congratulations! Say hello to your new friend, **${pets[petNum].name}**!`,
+            description: "Congratulations! Say hello to your new friend: **" + pets[petNum].name + "**!",
             image: {
                 url: "attachment://" + petNum + "-0.png"
             }
@@ -36,9 +34,9 @@ module.exports = {
             }
         }
 
-        await coin.addCoins(message.author.id, pets[petNum].price);
-        await pet.givePet(message.author.id, petNum);
-        await pet.changePetName(message.author.id, pets[petNum].name);
+        const coins = await coin.addCoins(user.id, pets[petNum].price);
+        petNum = await pet.givePet(user.id, petNum);
+        const petName = await pet.changePetName(user.id, pets[petNum].name);
 
         return {
             custom: true,

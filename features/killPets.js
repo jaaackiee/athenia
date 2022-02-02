@@ -1,6 +1,6 @@
 const mongo = require("../util/mongo");
 const petSchema = require("../schemas/pet-schema");
-module.exports = async (client, instance) => {
+module.exports = async () => {
     setInterval(kill, 1000 * 60 * 60 * 2);
 
     async function kill() {

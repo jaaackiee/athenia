@@ -5,7 +5,7 @@ module.exports = {
     category: "pets",
     description: "Heal your pet,",
     cooldown: "24h",
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
+    callback: async ({user}) => {
         const petNum = await pet.getPet(user.id);
         if (petNum === -1) {
             return {
@@ -14,7 +14,7 @@ module.exports = {
             }
         }
 
-        const votes = await vote.getVotes(user.id);
+        let votes = await vote.getVotes(user.id);
         if (votes < 10) {
             return {
                 custom: true,
@@ -22,15 +22,16 @@ module.exports = {
             }
         }
 
-        await vote.addVotes(user.id, -10);
+        votes = await vote.addVotes(user.id, -10);
 
-        const petHealth = Math.floor(Math.random() * 30) + 15;
-        await pet.addPetHealth(user.id, petHealth);
+        const health = Math.floor(Math.random() * 30) + 15;
+        const petHealth = await pet.addPetHealth(user.id, health);
 
         const petName = await pet.getPetName(user.id);
+        
         return {
             custom: true,
-            content: "You healed **" + petName + "** for **" + petHealth + "** <:heart1:852715565910196235>!"
+            content: "You healed **" + petName + "** for **" + health + "** <:heart1:852715565910196235>!"
         }
     }
 }

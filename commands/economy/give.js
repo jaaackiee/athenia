@@ -7,11 +7,10 @@ module.exports = {
     expectedArgs: "<user> <amount>",
     minArgs: 2,
     maxArgs: 2,
-    syntaxError: "Incorrect syntax! Use `{PREFIX}`ping {ARGUMENTS}",
     guildOnly: true,
-    callback: async ({guild, member, user, message, channel, args, text, client, prefix, instance, interaction}) => {
-        const u = await findUser(message, args[0]);
-        if (!u) {
+    callback: async ({user, message, args}) => {
+        const target = await findUser(message, args[0]);
+        if (!target || target.id === user.id) {
             return {
                 custom: true,
                 content: "Invalid user!"
@@ -20,19 +19,20 @@ module.exports = {
 
         const amt = Math.abs(parseInt(args[1]));
 
-        if (!await coin.buy(user.id, -amt)) {
+        const buyable = await coin.buy(user.id, -amt);
+        if (!buyable) {
             return {
                 custom: true,
-                content: "You do not have the required amount of coins to make that purchase!"
+                content: "You don't have enough <:starlings:925845621074722836> to buy that!"
             }
         }
 
-        const bal = await coin.addCoins(user.id, -amt);
-        await coin.addCoins(u.id, amt);
+        const userCoins = await coin.addCoins(user.id, -amt);
+        const targetCoins = await coin.addCoins(u.id, amt);
 
         return {
             custom: true,
-            content: `You have given **${u.username}** **${amt}** <:starlings:925845621074722836> . You now have **${bal}** <:starlings:925845621074722836> !`
+            content: "You have given **" + target.username + "** **" + amt + "** <:starlings:925845621074722836>. You now have **" + targetCoins + "** <:starlings:925845621074722836>!"
         }
     }
 }
