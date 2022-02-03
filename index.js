@@ -13,6 +13,8 @@ const client = new djs.Client({
 });
 
 client.on("ready", () => {
+    client.user.setActivity(".help");
+    
     new wokcommands(client, {
         commandsDir: path.join(__dirname, "commands"),
         mongoUri: process.env.MONGO_PATH,

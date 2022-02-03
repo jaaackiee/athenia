@@ -4,7 +4,7 @@ module.exports = {
     aliases: ["hug"],
     category: "pets",
     description: "Hug your pet.",
-    // cooldown: "??",
+    cooldown: "1h",
     callback: async ({user}) => {
         const petNum = await pet.getPet(user.id);
         if (petNum === -1) {
