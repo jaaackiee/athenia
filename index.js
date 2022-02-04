@@ -1,7 +1,7 @@
 const djs = require("discord.js");
 const path = require("path");
 const dotenv = require("dotenv");
-const commandHandler = require("./commandHandler");
+const commandHandler = require("./util/commandHandler");
 dotenv.config();
 
 const client = new djs.Client({
@@ -14,7 +14,7 @@ const client = new djs.Client({
 
 client.on("ready", () => {
     client.user.setActivity(".help");
-    client.user.setAvatar("./images/icon.png");
+    // client.user.setAvatar("./images/icon.png");
 
     commandHandler(client);
 });
