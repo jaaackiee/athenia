@@ -14,6 +14,7 @@ const client = new djs.Client({
 
 client.on("ready", () => {
     client.user.setActivity(".help");
+    client.user.setAvatar("./images/icon.png");
     
     new wokcommands(client, {
         commandsDir: path.join(__dirname, "commands"),
