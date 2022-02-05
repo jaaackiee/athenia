@@ -146,7 +146,7 @@ module.exports = (client) => {
 
         try {
             // console.log(commands[commandName].callback(message, ...args, args.join(" ")));
-            await message.reply(await commands[commandName].callback(message, ...args, args.join(" ")));
+            await message.reply(await commands[commandName].callback(message, args, args.join(" ")));
         } catch(e) {
             if (message.channel.type === "DM") {
                 return console.log(e);
