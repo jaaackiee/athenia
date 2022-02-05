@@ -7,7 +7,7 @@ module.exports = {
     cooldown: 3 * 60 * 60,
     guildOnly: true,
     callback: async (message, args, text) => {
-        const user = findUser(message, args[0]);
+        const user = await findUser(message, args[0]);
         if (!user) {
             return {
                 custom: true,
@@ -15,14 +15,15 @@ module.exports = {
             }
         }
 
-        const p1PetNum = await pet.getPet(message.author.id);
-        const p2PetNum = await pet.getPet(user.id);
-        if (p1PetNum === p2PetNum) {
+        if (user.id === message.author.id) {
             return {
                 custom: true,
                 content: "You can't have a playdate with yourself!"
             }
         }
+
+        const p1PetNum = await pet.getPet(message.author.id);
+        const p2PetNum = await pet.getPet(user.id);
 
         if (p1PetNum === -1) {
             return {

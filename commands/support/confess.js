@@ -3,7 +3,7 @@ module.exports = {
     minArgs: 1,
     callback: async (message, args, text) => {
         // const channel = client.channels.cache.get("798406796518752266");
-        const channel = client.channels.cache.get("869889176441593876");
+        const channel = message.client.channels.cache.get("869889176441593876");
         const embed = {
             color: 0x2f3136,
             title: "⸝⸝ Confession... ⊹˚.⋆.",
@@ -18,14 +18,14 @@ module.exports = {
         });
 
         // const privChannel = client.channels.cache.get("827374551708598302");
-        const privChannel = client.channels.cache.get("869889176441593876");
+        const privChannel = message.client.channels.cache.get("869889176441593876");
         privChannel.send({
             custom: true,
-            content: message.author.tag + " - (" + message.author.id + ") just said **" + text + "**"
+            content: "<@" + message.author.id + "> just said **" + text + "**"
         });
 
 
-        if (message.channel.type !== "dm") {
+        if (message.channel.type !== "DM") {
             await message.delete();
         }
         

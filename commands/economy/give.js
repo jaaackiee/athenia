@@ -6,8 +6,8 @@ module.exports = {
     maxArgs: 2,
     guildOnly: true,
     callback: async (message, args, text) => {
-        const target = await findUser(message, args[0]);
-        if (!target || target.id === message.author.id) {
+        const user = await findUser(message, args[0]);
+        if (!user || user.id === message.author.id) {
             return {
                 custom: true,
                 content: "Invalid user!"
@@ -25,11 +25,11 @@ module.exports = {
         }
 
         const userCoins = await coin.addCoins(message.author.id, -amt);
-        const targetCoins = await coin.addCoins(u.id, amt);
+        await coin.addCoins(user.id, amt);
 
         return {
             custom: true,
-            content: "You have given **" + target.username + "** **" + amt + "** <:starlings:925845621074722836>. You now have **" + targetCoins + "** <:starlings:925845621074722836>!"
+            content: "You have given **" + user.username + "** **" + amt + "**<:starlings:925845621074722836>. You now have **" + userCoins + "**<:starlings:925845621074722836>!"
         }
     }
 }

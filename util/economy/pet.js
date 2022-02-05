@@ -6,7 +6,8 @@ module.exports.givePet = async (_id, petNum) => {
     }, {
         _id,
         petHealth: 100,
-        pet: petNum
+        pet: petNum,
+        petName: pets[petNum].name
     }, {
         upsert: true,
         new: true,

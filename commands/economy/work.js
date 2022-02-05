@@ -7,7 +7,7 @@ module.exports = {
 
         return {
             custom: true,
-            content: "**" + message.author.username + "** put in a hard day of work and recieved: **" + amt + "** <:starlings:925845621074722836>!"
+            content: "**" + message.author.username + "** put in a hard day of work and recieved: **" + amt + "**<:starlings:925845621074722836>!"
         }
     }
 }

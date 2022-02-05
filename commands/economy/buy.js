@@ -31,7 +31,7 @@ module.exports = {
             }
         }
 
-        const role = guild.roles.cache.find((r) => r.name === text.toLowerCase());
+        const role = message.guild.roles.cache.find((r) => r.name === text.toLowerCase());
         try {
             message.member.roles.add(role);
         } catch (e) {
@@ -45,7 +45,7 @@ module.exports = {
 
         return {
             custom: true,
-            content: "Gave you the **" + roles[index].name + "** role! You have **" + coins.toLocaleString() + "** <:starlings:925845621074722836> remaining!"
+            content: "Gave you the **" + roles[index].name + "** role! You have **" + coins.toLocaleString() + "**<:starlings:925845621074722836> remaining!"
         }
     }
 }

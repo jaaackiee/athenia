@@ -49,7 +49,7 @@ module.exports = (client) => {
 
             const pickedEmbed = {
                 color: 0x2f3136,
-                description: "**" + m.author.username + "** picked **" + amt + "** <:starlings:925845621074722836>!"
+                description: "**" + m.author.username + "** picked **" + amt + "**<:starlings:925845621074722836>!"
             }
 
             message.channel.send({

@@ -7,7 +7,7 @@ module.exports = {
             title: "⸝⸝ Suggestion... ⊹˚.⋆",
             description: text,
             footer: {
-                text: "Suggestion by " + message.author
+                text: "Suggestion by " + message.author.tag
             }
         }
 

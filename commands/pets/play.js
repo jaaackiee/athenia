@@ -24,12 +24,21 @@ module.exports = {
         const embed = {
             color: 0x2f3136,
             title: plays[Math.floor(Math.random() * 2)],
-            description: "Healed **" + petName + "** for **" + petHealth + "** <:heart1:852715565910196235>!"
+            description: "Healed **" + petName + "** for **" + petHealth + "** <:heart1:852715565910196235>!",
+            image: {
+                url: "attachment://" + petNum + "-3.png"
+            }
         }
 
         return {
             custom: true,
-            embeds: [embed]
+            embeds: [embed],
+            files: [
+                {
+                    attachment: "images/pets/" + petNum + "-3.png",
+                    name: petNum + "-3.png"
+                }
+            ]
         }
     }
 }

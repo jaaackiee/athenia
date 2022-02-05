@@ -51,7 +51,7 @@ module.exports = {
                     },
                     {
                         name: "Balance",
-                        value: coins.toLocaleString() + " <:starlings:925845621074722836> \n" + foods.toLocaleString() + " <:food:925845676464676875> \n" + votes.toLocaleString() + " <:moonshards:925845639651270656>",
+                        value: coins.toLocaleString() + "<:starlings:925845621074722836> \n" + foods.toLocaleString() + " <:food:925845676464676875> \n" + votes.toLocaleString() + "<:moonshards:925845639651270656>",
                         inline: true
                     }
                 ],
@@ -85,7 +85,7 @@ module.exports = {
                     },
                     {
                         name: "Balance",
-                        value: coins.toLocaleString() + " <:starlings:925845621074722836> \n" + foods.toLocaleString() + " <:food:925845676464676875> \n" + votes.toLocaleString() + " <:moonshards:925845639651270656>",
+                        value: coins.toLocaleString() + "<:starlings:925845621074722836> \n" + foods.toLocaleString() + " <:food:925845676464676875> \n" + votes.toLocaleString() + "<:moonshards:925845639651270656>",
                         inline: true
                     }
                 ],
@@ -118,7 +118,7 @@ module.exports = {
                     },
                     {
                         name: "Balance",
-                        value: coins.toLocaleString() + " <:starlings:925845621074722836> \n" + votes.toLocaleString() + " <:moonshards:925845639651270656>",
+                        value: coins.toLocaleString() + "<:starlings:925845621074722836> \n" + votes.toLocaleString() + "<:moonshards:925845639651270656>",
                         inline: true
                     }
                 ]

@@ -1,10 +1,15 @@
 module.exports = {
     guildOnly: true,
     callback: (message, args, text) => {
-        if (channel.parentID !== "830301022190174228") return;
+        if (message.channel.parentID !== "830301022190174228") {
+            return {
+                custom: true,
+                content: "This channel is not a ticket!"
+            }
+        }
 
         setTimeout(function() {
-            channel.delete();
+            message.channel.delete();
         }, 10000);
 
         return {

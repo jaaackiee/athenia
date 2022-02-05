@@ -4,9 +4,9 @@ const pet = require("../../util/economy/pet");
 const vote = require("../../util/economy/vote");
 module.exports = {
     ownerOnly: true,
-    callback: async (message, args, text) => {
+    callback: (message, args, text) => {
         try {
-            eval(text);
+            eval("(async () => {" + text + "})()");
         } catch (err) {
             return {
                 custom: true,

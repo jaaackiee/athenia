@@ -10,7 +10,7 @@ module.exports = {
         let txt = "";
         for (let i = 0; i < res.length; i ++) {
             const { _id, coins } = res[i];
-            txt += (i + 1) + ". **<@" + _id + ">** - **" + coins.toLocaleString() + "** <:starlings:925845621074722836>\n";
+            txt += (i + 1) + ". **<@" + _id + ">** - **" + coins.toLocaleString() + "**<:starlings:925845621074722836>\n";
         }
 
         const embed = {

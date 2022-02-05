@@ -7,7 +7,7 @@ module.exports = {
 
         return {
             custom: true,
-            content: "**" + message.author.username + "** claimed their daily bonus of **" + amt.toLocaleString() + "** <:starlings:925845621074722836>! They now have **" + coins.toLocaleString() + "** <:starlings:925845621074722836>!"
+            content: "**" + message.author.username + "** claimed their daily bonus of **" + amt.toLocaleString() + "**<:starlings:925845621074722836>! They now have **" + coins.toLocaleString() + "**<:starlings:925845621074722836>!"
         }
     }
 }

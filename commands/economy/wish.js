@@ -6,7 +6,7 @@ module.exports = {
 
         return {
             custom: true,
-            content: "Added **1** <:moonshards:925845639651270656> to your balance. You now have **" + votes + "** <:moonshards:925845639651270656>"
+            content: "Added **1**<:moonshards:925845639651270656> to your balance. You now have **" + votes + "**<:moonshards:925845639651270656>"
         }
     }
 }

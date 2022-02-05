@@ -11,7 +11,7 @@ module.exports = {
         }
 
         const petName = await pet.getPetName(message.author.id);
-        let oods = await food.getFood(message.author.id);
+        let foods = await food.getFood(message.author.id);
         if (foods < 5) {
             return {
                 custom: true,
