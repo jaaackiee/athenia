@@ -7,7 +7,8 @@ module.exports = {
         if (petNum === -1) {
             return {
                 custom: true,
-                content: "You don't have a pet! Use `.petshop` to adopt one!"
+                content: "You don't have a pet! Use `.petshop` to adopt one!",
+                failed: true
             }
         }
 
@@ -15,7 +16,8 @@ module.exports = {
         if (foods < 5) {
             return {
                 custom: true,
-                content: "You don't have enough food to cuddle!"
+                content: "You don't have enough food to cuddle!",
+                failed: true
             }
         }
 
@@ -23,7 +25,7 @@ module.exports = {
         foods = await food.addFood(message.author.id, -cost);
 
         const health = Math.floor(Math.random() * 2) + 3;
-        const petHealth = await pet.addPetHealth(message.author.id, health);
+        await pet.addPetHealth(message.author.id, health);
 
         const name = await pet.getPetName(message.author.id);
         const embed = {

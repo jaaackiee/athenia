@@ -20,7 +20,7 @@ const client = new djs.Client({
 
 client.on("ready", () => {
     client.user.setActivity(".help");
-    client.user.setAvatar("./images/icon.png");
+    // client.user.setAvatar("./images/icon.png");
     
     try {
         mongoose.connect(process.env.MONGO_PATH, {

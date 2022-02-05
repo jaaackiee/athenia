@@ -18,7 +18,8 @@ module.exports = {
         if (!buyable) {
             return {
                 custom: true,
-                content: "Invalid role name! Use `.shop` to view the role shop!"
+                content: "Invalid role name! Use `.shop` to view the role shop!",
+                failed: true
             }
         }
 
@@ -27,7 +28,8 @@ module.exports = {
         if (!buyable) {
             return {
                 custom: true,
-                content: "You don't have enough <:starlings:925845621074722836> to buy that!"
+                content: "You don't have enough <:starlings:925845621074722836> to buy that!",
+                failed: true
             }
         }
 
@@ -37,7 +39,8 @@ module.exports = {
         } catch (e) {
             return {
                 custom: true,
-                content: "\`\`\`st\n" + e + "\n\`\`\`"
+                content: "\`\`\`st\n" + e + "\n\`\`\`",
+                failed: true
             }
         }
 

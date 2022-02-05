@@ -7,7 +7,8 @@ module.exports = {
         if (petNum < 0) {
             return {
                 custom: true,
-                content: "You don't have a pet to disown!"
+                content: "You don't have a pet! Use `.petshop` to adopt one!",
+                failed: true
             }
         }
         

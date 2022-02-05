@@ -1,7 +1,7 @@
 module.exports = {
     expectedArgs: "<suggestion>",
     minArgs: 1,
-    callback: (message, args, text) => {
+    callback: async (message, args, text) => {
         const embed = {
             color: 0x2f3136,
             title: "⸝⸝ Suggestion... ⊹˚.⋆",
@@ -19,8 +19,7 @@ module.exports = {
         });
 
         if (channel.type !== "dm") {
-            message.delete();
-            return;
+            await message.delete();
         }
         
         return {

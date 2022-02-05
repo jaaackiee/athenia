@@ -11,14 +11,16 @@ module.exports = {
         if (!user) {
             return {
                 custom: true,
-                content: "Invalid user!"
+                content: "Invalid user!",
+                failed: true
             }
         }
 
         if (user.id === message.author.id) {
             return {
                 custom: true,
-                content: "You can't have a playdate with yourself!"
+                content: "You can't have a playdate with yourself!",
+                failed: true
             }
         }
 
@@ -28,13 +30,15 @@ module.exports = {
         if (p1PetNum === -1) {
             return {
                 custom: true,
-                content: "You don't have a pet! Use `.petshop` to adopt one!"
+                content: "You don't have a pet! Use `.petshop` to adopt one!",
+                failed: true
             }
         }
         if (p2PetNum === -1) {
             return {
                 custom: true,
-                content: "**" + user.username + "** doesn't have a pet!"
+                content: "**" + user.username + "** doesn't have a pet!",
+                failed: true
             }
         }
 
@@ -42,7 +46,8 @@ module.exports = {
         if (foods < 20) {
             return {
                 custom: true,
-                content: "You don't have enough food for a playdate!"
+                content: "You don't have enough food for a playdate!",
+                failed: true
             }
         }
 

@@ -6,7 +6,8 @@ module.exports = {
         if (petNum === -1) {
             return {
                 custom: true,
-                content: "You don't have a pet! Use `.petshop` to adopt one!"
+                content: "You don't have a pet! Use `.petshop` to adopt one!",
+                failed: true
             }
         }
 
@@ -15,7 +16,8 @@ module.exports = {
         if (foods < 5) {
             return {
                 custom: true,
-                content: "You don't have enough food to feed **" + petName + "**!"
+                content: "You don't have enough food to feed your pet!",
+                failed: true
             }
         }
 

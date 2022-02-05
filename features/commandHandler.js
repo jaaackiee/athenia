@@ -111,9 +111,10 @@ module.exports = (client) => {
             });
         }
 
+        let cooldown;
         if (options.cooldown > 0) {
             // Check if there is a cooldown active for this user & command
-            const cooldown = await cooldownSchema.findOne({
+            cooldown = await cooldownSchema.findOne({
                 _id: message.author.id + "-" + commandName,
                 name: commandName
             });
@@ -145,8 +146,14 @@ module.exports = (client) => {
         }
 
         try {
-            // console.log(commands[commandName].callback(message, ...args, args.join(" ")));
-            await message.reply(await commands[commandName].callback(message, args, args.join(" ")));
+            const execute = await commands[commandName].callback(message, args, args.join(" "));
+            message.reply(execute);
+
+            if (options.cooldown > 0 && cooldown === null && execute.failed) {
+                await cooldownSchema.deleteOne({
+                    _id: message.author.id + "-" + commandName,
+                });
+            }
         } catch(e) {
             if (message.channel.type === "DM") {
                 return console.log(e);

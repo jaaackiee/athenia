@@ -7,22 +7,24 @@ module.exports = {
         if (petNum === -1) {
             return {
                 custom: true,
-                content: "You don't have a pet! Use `.petshop` to adopt one!"
+                content: "You don't have a pet! Use `.petshop` to adopt one!",
+                failed: true
             }
         }
 
-        let votes = await vote.getVotes(message.author.id);
+        const votes = await vote.getVotes(message.author.id);
         if (votes < 10) {
             return {
                 custom: true,
-                content: "You don't have enough <:moonshards:925845639651270656> to regen your pet!"
+                content: "You don't have enough <:moonshards:925845639651270656> to regen your pet!",
+                failed: true
             }
         }
 
-        votes = await vote.addVotes(message.author.id, -10);
+        await vote.addVotes(message.author.id, -10);
 
         const health = Math.floor(Math.random() * 30) + 15;
-        const petHealth = await pet.addPetHealth(message.author.id, health);
+        await pet.addPetHealth(message.author.id, health);
 
         const petName = await pet.getPetName(message.author.id);
         

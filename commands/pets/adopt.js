@@ -10,7 +10,8 @@ module.exports = {
         if (petNum < 0 || petNum > 7 || typeof(petNum) !== "number") {
             return {
                 custom: true,
-                content: "Invalid number!"
+                content: "Invalid number!",
+                failed: true
             }
         }
 
@@ -27,13 +28,14 @@ module.exports = {
         if (!canBuy) {
             return {
                 custom: true,
-                content: "You don't have enough <:starlings:925845621074722836> to adopt this pet."
+                content: "You don't have enough <:starlings:925845621074722836> to adopt this pet.",
+                failed: true
             }
         }
 
-        const coins = await coin.addCoins(message.author.id, pets[petNum].price);
+        await coin.addCoins(message.author.id, pets[petNum].price);
         petNum = await pet.givePet(message.author.id, petNum);
-        const petName = await pet.changePetName(message.author.id, pets[petNum].name);
+        await pet.changePetName(message.author.id, pets[petNum].name);
 
         return {
             custom: true,

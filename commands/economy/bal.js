@@ -12,7 +12,8 @@ module.exports = {
         if (!user) {
             return {
                 custom: true,
-                content: "Invalid user."
+                content: "Invalid user.",
+                failed: true
             }
         }
 

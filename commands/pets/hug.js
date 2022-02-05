@@ -7,7 +7,8 @@ module.exports = {
         if (petNum === -1) {
             return {
                 custom: true,
-                content: "You don't have a pet! Use `.petshop` to adopt one!"
+                content: "You don't have a pet! Use `.petshop` to adopt one!",
+                failed: true
             }
         }
 
@@ -15,7 +16,8 @@ module.exports = {
         if (votes < 5) {
             return {
                 custom: true,
-                content: "You don't have enough <:moonshards:925845639651270656> to hug your pet!"
+                content: "You don't have enough <:moonshards:925845639651270656> to hug your pet!",
+                failed: true
             }
         }
 

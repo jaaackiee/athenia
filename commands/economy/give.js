@@ -10,7 +10,8 @@ module.exports = {
         if (!user || user.id === message.author.id) {
             return {
                 custom: true,
-                content: "Invalid user!"
+                content: "Invalid user!",
+                failed: true
             }
         }
 
@@ -20,7 +21,8 @@ module.exports = {
         if (!buyable) {
             return {
                 custom: true,
-                content: "You don't have enough <:starlings:925845621074722836> to buy that!"
+                content: "You don't have enough <:starlings:925845621074722836> to buy that!",
+                failed: true
             }
         }
 
