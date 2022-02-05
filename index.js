@@ -1,7 +1,7 @@
 const djs = require("discord.js");
-const path = require("path");
+const runFeatures = require("./util/runFeatures");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const commandHandler = require("./util/commandHandler");
 dotenv.config();
 
 const client = new djs.Client({
@@ -9,14 +9,34 @@ const client = new djs.Client({
         djs.Intents.FLAGS.GUILDS,
         djs.Intents.FLAGS.GUILD_MESSAGES,
         djs.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        djs.Intents.FLAGS.DIRECT_MESSAGES
     ],
+    partials: [
+        "MESSAGE",
+        "CHANNEL",
+        "REACTION"
+    ]
 });
 
 client.on("ready", () => {
     client.user.setActivity(".help");
-    // client.user.setAvatar("./images/icon.png");
+    client.user.setAvatar("./images/icon.png");
+    
+    try {
+        mongoose.connect(process.env.MONGO_PATH, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        console.log("MESSAGE > Connected to MongoDB!");
+    } catch(e) {
+        const jackie = client.users.cache.get("326645430089941030");
+        jackie.send({
+            custom: true,
+            content: "Could not connect to database!\n\`\`\`st\n" + e + "\n\`\`\`"
+        });
+    }
 
-    commandHandler(client);
+    runFeatures(client);
 });
 
 client.login(process.env.TOKEN);

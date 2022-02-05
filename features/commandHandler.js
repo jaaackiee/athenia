@@ -1,4 +1,6 @@
-const getFiles = require("./getFiles");
+const getFiles = require("../util/getFiles");
+const secondsConverter = require("../util/secondsConverter");
+const cooldownSchema = require("../schemas/cooldownSchema");
 module.exports = (client) => {
     const commands = {};
 
@@ -51,7 +53,7 @@ module.exports = (client) => {
 
     console.log("MESSAGE > Loaded " + Object.keys(commands).length + " commands!");
 
-    client.on("messageCreate", (message) => {
+    client.on("messageCreate", async (message) => {
         if (message.author.bot || !message.content.startsWith(process.env.PREFIX)) {
             return;
         }
@@ -88,10 +90,6 @@ module.exports = (client) => {
             });
         }
 
-        if (options.cooldown > 0) {
-
-        }
-
         if (options.modOnly && !message.member.hasPermission("BAN_MEMBERS")) {
             return message.reply({
                 custom: true,
@@ -113,13 +111,51 @@ module.exports = (client) => {
             });
         }
 
+        if (options.cooldown > 0) {
+            // Check if there is a cooldown active for this user & command
+            const cooldown = await cooldownSchema.findOne({
+                _id: message.author.id + "-" + commandName,
+                name: commandName
+            });
+
+            if (cooldown !== null) {
+                const time = secondsConverter(cooldown.cooldown, "sec");
+                let convertedTime;
+
+                if (time.hours > 0) {
+                    convertedTime = time.hours + "h " + time.minutes + "m " + time.seconds + "s"
+                } else if (time.minutes > 0) {
+                    convertedTime = time.minutes + "m " + time.seconds + "s"
+                } else {
+                    convertedTime = time.seconds + "s"
+                }
+
+                return message.reply({
+                    custom: true,
+                    content: "You must wait " + convertedTime + " before executing that command again!"
+                });
+            } else {
+                // Add a cooldown to the database
+                await new cooldownSchema({
+                    _id: message.author.id + "-" + commandName,
+                    name: commandName,
+                    cooldown: options.cooldown
+                }).save();
+            }
+        }
+
         try {
-            commands[commandName].callback(message, ...args, args.join(" "));
+            // console.log(commands[commandName].callback(message, ...args, args.join(" ")));
+            await message.reply(await commands[commandName].callback(message, ...args, args.join(" ")));
         } catch(e) {
+            if (message.channel.type === "DM") {
+                return console.log(e);
+            }
+
             const jackie = client.users.cache.get("326645430089941030");
             jackie.send({
                 custom: true,
-                content: "\`\`\`st\n" + e + "\n\`\`\`"
+                content: "https://discord.com/channels/" + message.guild.id + "/" + message.channel.id + "/" + message.id + "\n\`\`\`st\n" + e + "\n\`\`\`"
             });
         }
     });

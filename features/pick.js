@@ -2,7 +2,7 @@
  * Create a message that allows users to earn money by picking it up: `.pick`
  */
 
-const coin = require("../util/coin");
+const coin = require("../util/economy/coin");
 module.exports = (client) => {
     client.on("messageCreate", (message) => {
         const res = [];
@@ -23,7 +23,7 @@ module.exports = (client) => {
         const filter = (msg) => !msg.author.bot && msg.content.toLowerCase() === ".pick";
         const collector = message.channel.createMessageCollector(filter, { time: 10000 });
 
-        collector.on("collect", (msg) => {
+        collector.on("collect", async (msg) => {
             msg.delete();
             if (res.includes(msg.author.id)) {
                 const pickedEmbed = {
