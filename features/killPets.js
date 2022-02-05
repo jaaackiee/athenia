@@ -5,7 +5,9 @@ module.exports = async () => {
     async function kill() {
         const petHealth = Math.floor(Math.random() * -2 - 1);
         await petSchema.updateMany({
-            pet: [0, 1, 2, 3, 4, 5, 6, 7]
+            pet: {
+                $gt: -1
+            }
         }, {
             $inc: {
                 petHealth
@@ -15,7 +17,9 @@ module.exports = async () => {
         });
 
         await petSchema.updateMany({
-            petHealth: [0, -1, -2, -3, -4, -5]
+            petHealth: {
+                $lt: 1
+            }
         }, {
             pet: -1,
             petHealth: 100

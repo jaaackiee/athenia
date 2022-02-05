@@ -124,11 +124,11 @@ module.exports = (client) => {
                 let convertedTime;
 
                 if (time.hours > 0) {
-                    convertedTime = time.hours + "h " + time.minutes + "m " + time.seconds + "s"
+                    convertedTime = time.hours + "h " + time.minutes + "m " + time.seconds + "s";
                 } else if (time.minutes > 0) {
-                    convertedTime = time.minutes + "m " + time.seconds + "s"
+                    convertedTime = time.minutes + "m " + time.seconds + "s";
                 } else {
-                    convertedTime = time.seconds + "s"
+                    convertedTime = time.seconds + "s";
                 }
 
                 return message.reply({
@@ -149,6 +149,7 @@ module.exports = (client) => {
             const execute = await commands[commandName].callback(message, args, args.join(" "));
             message.reply(execute);
 
+            // Remove the cooldown if the command failed
             if (options.cooldown > 0 && cooldown === null && execute.failed) {
                 await cooldownSchema.deleteOne({
                     _id: message.author.id + "-" + commandName,

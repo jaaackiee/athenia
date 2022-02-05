@@ -1,6 +1,8 @@
 const findUser = require("../../util/findUser");
 const pet = require("../../util/economy/pet");
 const food = require("../../util/economy/food");
+const cooldownSchema = require("../../schemas/cooldownSchema");
+const secondsConverter = require("../../util/secondsConverter");
 module.exports = {
     expectedArgs: "<user>",
     minArgs: 1,
@@ -20,6 +22,26 @@ module.exports = {
             return {
                 custom: true,
                 content: "You can't have a playdate with yourself!",
+                failed: true
+            }
+        }
+
+        const cooldown = await cooldownSchema.findOne({ _id: user.id + "-playdate" });
+        if (cooldown !== null) {
+            const time = secondsConverter(cooldown.cooldown, "sec");
+            let convertedTime;
+
+            if (time.hours > 0) {
+                convertedTime = time.hours + "h " + time.minutes + "m " + time.seconds + "s";
+            } else if (time.minutes > 0) {
+                convertedTime = time.minutes + "m " + time.seconds + "s";
+            } else {
+                convertedTime = time.seconds + "s";
+            }
+
+            return {
+                custom: true,
+                content: "**" + user.username + "**'s pet is too tired to play! They can play again in **" + convertedTime + "**!",
                 failed: true
             }
         }
@@ -60,6 +82,12 @@ module.exports = {
 
         const p1PetName = await pet.getPetName(message.author.id);
         const p2PetName = await pet.getPetName(user.id);
+
+        await new cooldownSchema({
+            _id: user.id + "-playdate",
+            name: "playdate",
+            cooldown: 3 * 60 * 60
+        }).save();
 
         return {
             custom: true,
