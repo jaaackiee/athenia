@@ -1,7 +1,6 @@
 const food = require("../../util/economy/food");
 const pet = require("../../util/economy/pet");
 module.exports = {
-    description: "cuddle your pet",
     cooldown: 6 * 60 * 60,
     callback: async (message, args, text) => {
         const petNum = await pet.getPet(message.author.id);

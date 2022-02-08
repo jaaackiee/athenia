@@ -1,6 +1,5 @@
 const coin = require("../../util/economy/coin");
 module.exports = {
-    description: "daily bonus",
     cooldown: 24 * 60 * 60,
     callback: async (message, args, text) => {
         const amt = Math.floor(Math.random() * 2000) + 1000;

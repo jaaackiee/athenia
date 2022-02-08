@@ -1,7 +1,6 @@
 const findUser = require("../../util/findUser");
 const coin = require("../../util/economy/coin");
 module.exports = {
-    description: "give a user some money",
     expectedArgs: "<user> <amount>",
     minArgs: 2,
     maxArgs: 2,

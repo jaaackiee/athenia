@@ -1,6 +1,5 @@
 const vote = require("../../util/economy/vote");
 module.exports = {
-    description: "wish upon a star",
     cooldown: 12 * 60 * 60,
     callback: async (message, args, text) => {
         const votes = await vote.addVotes(message.author.id, 1);

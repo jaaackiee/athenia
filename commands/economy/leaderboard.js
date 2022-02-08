@@ -1,6 +1,5 @@
 const profileSchema = require("../../schemas/profile-schema");
 module.exports = {
-    description: "top 10 richest users",
     guildOnly: true,
     callback: async (message, args, text) => {
         let res;

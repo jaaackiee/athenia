@@ -1,6 +1,5 @@
 const axios = require("axios");
 module.exports = {
-    description: "wholesome memes",
     callback: async (message, args, text) => {
         const res = await axios.get("https://meme-api.herokuapp.com/gimme/wholesomememes");
         const embed = {

@@ -2,7 +2,6 @@ const coin = require("../../util/economy/coin");
 const pets = require("../../resources/pets.json");
 const pet = require("../../util/economy/pet");
 module.exports = {
-    description: "adopt a pet: .petshop",
     expectedArgs: "<petID>",
     minArgs: 1,
     maxArgs: 1,

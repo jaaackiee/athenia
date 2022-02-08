@@ -1,5 +1,4 @@
 module.exports = {
-    description: "close a ticket",
     guildOnly: true,
     callback: (message, args, text) => {
         if (message.channel.parentID !== "830301022190174228") {

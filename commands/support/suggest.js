@@ -1,5 +1,4 @@
 module.exports = {
-    description: "make a suggestion",
     expectedArgs: "<suggestion>",
     minArgs: 1,
     callback: async (message, args, text) => {

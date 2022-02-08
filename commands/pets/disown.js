@@ -1,6 +1,5 @@
 const pet = require("../../util/economy/pet");
 module.exports = {
-    description: "disown your pet",
     callback: async (message, args, text) => {
         const petName = await pet.getPetName(message.author.id);
         const petNum = await pet.getPet(message.author.id);
