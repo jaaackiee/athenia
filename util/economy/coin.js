@@ -1,4 +1,4 @@
-const profileSchema = require("../../schemas/profile-schema");
+const profileSchema = require("../../schemas/profileSchema");
 const coin = require("./coin");
 module.exports.addCoins = async (_id, coins) => {
     const res = await profileSchema.findOneAndUpdate({

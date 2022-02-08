@@ -1,4 +1,4 @@
-const profileSchema = require("../../schemas/profile-schema");
+const profileSchema = require("../../schemas/profileSchema");
 module.exports.addFood = async (_id, food) => {
     const res = await profileSchema.findOneAndUpdate({
         _id

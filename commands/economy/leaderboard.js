@@ -1,4 +1,4 @@
-const profileSchema = require("../../schemas/profile-schema");
+const profileSchema = require("../../schemas/profileSchema");
 module.exports = {
     description: "top 10 richest users",
     guildOnly: true,

@@ -1,4 +1,4 @@
-const profileSchema = require("../../schemas/profile-schema");
+const profileSchema = require("../../schemas/profileSchema");
 module.exports.addVotes = async (_id, votes) => {
     const res = await profileSchema.findOneAndUpdate({
         _id

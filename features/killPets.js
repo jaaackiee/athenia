@@ -1,4 +1,4 @@
-const petSchema = require("../schemas/pet-schema");
+const petSchema = require("../schemas/petSchema");
 module.exports = async () => {
     setInterval(kill, 1000 * 60 * 60 * 2);
 

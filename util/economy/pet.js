@@ -1,4 +1,4 @@
-const petSchema = require("../../schemas/pet-schema");
+const petSchema = require("../../schemas/petSchema");
 const pets = require("../../resources/pets.json");
 module.exports.givePet = async (_id, petNum) => {
     const res = await petSchema.findOneAndUpdate({
