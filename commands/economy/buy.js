@@ -1,6 +1,7 @@
 const roles = require("../../resources/roles.json");
 const coin = require("../../util/economy/coin");
 module.exports = {
+    description: "buy roles",
     expectedArgs: "<roleName>",
     minArgs: 1,
     guildOnly: true,

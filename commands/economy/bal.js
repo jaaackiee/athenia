@@ -5,6 +5,7 @@ const food = require("../../util/economy/food");
 const vote = require("../../util/economy/vote");
 const pets = require("../../resources/pets.json");
 module.exports = {
+    description: "balance and pet info",
     expectedArgs: "[user]",
     maxArgs: 1,
     callback: async (message, args, text) => {

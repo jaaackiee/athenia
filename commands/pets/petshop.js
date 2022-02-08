@@ -1,4 +1,5 @@
 module.exports = {
+    description: "adopt a pet",
     callback: (message, args, text) => {
         const embed = {
             color: 0x2f3136,

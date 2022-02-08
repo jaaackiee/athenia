@@ -1,5 +1,6 @@
 const roles = require("../../resources/roles.json");
 module.exports = {
+    description: "role shop",
     callback: (message, args, text) => {
         let txt = "";
         roles.forEach(function(role) {

@@ -1,5 +1,6 @@
 const wildlife = require("../../resources/wildlife.json");
 module.exports = {
+    description: "cute animal pictures",
     callback: (message, args, text) => {
         return {
             custom: true,

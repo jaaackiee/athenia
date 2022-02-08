@@ -1,6 +1,7 @@
 const vote = require("../../util/economy/vote");
 const pet = require("../../util/economy/pet");
 module.exports = {
+    description: "rename your pet",
     expectedArgs: "<petName>",
     minArgs: 1,
     callback: async (message, args, text) => {

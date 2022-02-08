@@ -1,5 +1,6 @@
 const axios = require("axios");
 module.exports = {
+    description: "inspirational quotes",
     callback: async (message, args, text) => {
         const res = await axios.get("https://zenquotes.io/api/random");
         return {
