@@ -4,6 +4,7 @@ const food = require("../../util/economy/food");
 const cooldownSchema = require("../../schemas/cooldownSchema");
 const secondsConverter = require("../../util/secondsConverter");
 module.exports = {
+    description: "have a playdate with another user",
     expectedArgs: "<user>",
     minArgs: 1,
     cooldown: 3 * 60 * 60,

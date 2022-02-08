@@ -1,6 +1,7 @@
 const pet = require("../../util/economy/pet");
 const food = require("../../util/economy/food");
 module.exports = {
+    description: "feed  your pet",
     callback: async (message, args, text) => {
         const petNum = await pet.getPet(message.author.id);
         if (petNum === -1) {

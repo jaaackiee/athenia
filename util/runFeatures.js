@@ -8,13 +8,13 @@ const reminder = require("../features/reminder");
 const ticket = require("../features/ticket");
 const welcome = require("../features/welcome");
 module.exports = (client) => {
-    // autoResponder(client);
-    // coin(client);
+    autoResponder(client);
+    coin(client);
     commandHandler(client);
-    // cooldown();
-    // killPets();
-    // pick(client);
-    // reminder();
-    // ticket(client);
-    // welcome(client);
+    cooldown();
+    killPets();
+    pick(client);
+    reminder();
+    ticket(client);
+    welcome(client);
 }

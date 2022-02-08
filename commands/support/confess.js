@@ -1,4 +1,5 @@
 module.exports = {
+    description: "confess a secret anonymously",
     expectedArgs: "<confession>",
     minArgs: 1,
     callback: async (message, args, text) => {
