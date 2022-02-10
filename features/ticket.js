@@ -1,16 +1,8 @@
+const { MessageButton, MessageActionRow } = require("discord.js");
+
 module.exports = async (client) => {
-    client.on("messageReactionAdd", async (reaction, user) => {
-        if (reaction.message.channel.id !== "829838297374916670") return;
-        if (reaction.emoji.id !== "827391670030434335") return;
-        if (user.bot) return;
-
-        const msg = await reaction.message.channel.messages.fetch(reaction.message.id);
-        msg.reactions.resolve(reaction.emoji.id).users.remove(user);
-
-        const cooldown = client.channels.cache.find((c) => c.topic === user.id);
-        if (cooldown) {
-            return message.author.send("You can only have one ticket open at a time!");
-        }
+    client.on("interactionCreate", async (interaction) => {
+        if (interaction.channel.id !== "829838297374916670") return;
 
         const embed = {
             color: 0x2f3136,
@@ -21,15 +13,26 @@ module.exports = async (client) => {
             }
         }
 
-        await reaction.message.guild.channels.create(user.username.toLowerCase() + "-" + user.discriminator, {
+        let channelId;
+
+        const cooldown = client.channels.cache.find((c) => c.topic === interaction.user.id);
+        if (cooldown) {
+            return interaction.reply({
+                custom: true,
+                content: "You can only have one ticket open at a time!",
+                ephemeral: true
+            });
+        }
+
+        await interaction.guild.channels.create(interaction.user.username.toLowerCase() + "-" + interaction.user.discriminator, {
             parent: "830301022190174228",
             permissionOverwrites: [
                 {
-                    id: user.id,
+                    id: interaction.user.id,
                     allow: ["VIEW_CHANNEL"]
                 },
                 {
-                    id: reaction.message.guild.id,
+                    id: interaction.guild.id,
                     deny: ["VIEW_CHANNEL"]
                 },
                 {
@@ -45,18 +48,44 @@ module.exports = async (client) => {
                     allow: ["VIEW_CHANNEL"]
                 }
             ]
-        })
-            .then((chnl) => chnl.send({
+        }).then((chnl) => {
+            chnl.send({
                 custom: true,
-                content: "・✰﹕" + user + "... Hello! Please read the info below. ⊹˚.⋆",
+                content: "・✰﹕<@" + interaction.user + ">... Hello! Please read the info below. ⊹˚.⋆",
                 embeds: [embed]
-            }) && chnl.setTopic(user.id))
-                .catch((e) => console.error(e));
+            });
+
+            chnl.setTopic(interaction.user.id);
+            
+            channelId = chnl.id;
+        }).catch((e) => {
+            console.log(e);
+        });
+
+        interaction.reply({
+            custom: true,
+            content: "Ticket created: <#" + channelId + ">!",
+            ephemeral: true
+        });
     });
 
     client.on("messageCreate", (message) => {
         if (message.channel.id !== "829838297374916670") return;
+        if (message.author.bot) return;
 
-        message.react("827391670030434335");
+        const button = new MessageButton().setCustomId("supportTicket").setLabel("Open Support Ticket").setStyle("SUCCESS").setEmoji("827391670030434335");
+        const row = new MessageActionRow().addComponents(button);
+
+        const embed = {
+            color: 0x2f3136,
+            title: "rachel this is the ticket embed",
+            description: "change it in github\nathenia/features/ticket.js\nline 79-83\n\nor just send me the embed in test server"
+        }
+
+        return message.channel.send({
+            custom: true,
+            embeds: [embed],
+            components: [row]
+        });
     });
 }

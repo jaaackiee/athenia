@@ -1,8 +1,9 @@
 module.exports = {
     description: "close a ticket",
+    expectedArgs: "[reason]",
     guildOnly: true,
     callback: (message, args, text) => {
-        if (message.channel.parentID !== "830301022190174228") {
+        if (message.channel.parentId !== "830301022190174228") {
             return {
                 custom: true,
                 content: "This channel is not a ticket!",
@@ -10,8 +11,16 @@ module.exports = {
             }
         }
 
+        const user = message.client.users.cache.get(message.channel.topic);
+        user.send({
+            custom: true,
+            content: "Your ticket in Athenia has been closed for this reason:\n" + text 
+        });
+
         setTimeout(function() {
-            message.channel.delete();
+            message.channel.delete({
+                reason: text
+            });
         }, 10000);
 
         return {
