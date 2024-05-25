@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/jaaackiee/athenia#readme",
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.28.0",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "mongoose": "^6.1.8"
